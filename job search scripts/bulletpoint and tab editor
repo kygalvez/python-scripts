@@ -1,0 +1,22 @@
+# (shebang line)
+# I created a script that will delete bullet points and replace \t (tab space) with a space.
+# The parsed information from my resume on an application tracking system added tabs rather than spaces in between 
+# words. Rather than replacing tabs and removing bullet points manually, I created a script that did so from parsed 
+# information that is copied to the clipboard and returns an aesthetically pleasing result back to the clipboard.
+
+import sys
+import pyperclip
+
+if len(sys.argv) < 1:
+    sys.exit()
+
+text = pyperclip.paste()  # Grabs text from clipboard
+print(text)
+bullet_points = text.split("\n")
+for i in range(len(bullet_points)):  # loop through all the indexes
+    bullet_points[i] = bullet_points[i].translate(str.maketrans("\t", " ", "• "))  # Replace tab with space and removes 
+    # bullet points
+    print(bullet_points)
+text = "\n".join(bullet_points)
+pyperclip.copy(text)
+print(text)
